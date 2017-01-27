@@ -9,7 +9,7 @@ public class Main {
 		StdDraw.enableDoubleBuffering();
 		MinPQ prq = new MinPQ();  // instantiates a new Minimum Priority Queue
 		
-		//TODO: Read in text file using stdin
+		//TODO: Read in text file using stdin 
 		//TODO: instantiate all particles read in as particles()
 		
 		//TODO: Add all elements to the priority queue
