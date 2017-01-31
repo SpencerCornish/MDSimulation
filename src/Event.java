@@ -1,49 +1,37 @@
 
-public class Event {
+public class Event implements Comparable<Event> {
 	private double time;
 	private Particle a;
 	private Particle b;
+	private int countA, countB;
 	public Event(double time, Particle a, Particle b)
 	{
 		this.time = time;
 		this.a = a;
 		this.b = b;
+		if(a != null) countA = a.getCollisionCount();
+		if(b != null) countB = b.getCollisionCount();
 	}
-
-	// returns time of the event
-	public double getTime() {
-		return 0;
+	@Override
+	public int compareTo(Event other) {
+		return Double.compare(time, other.getTime());
 	}
-
-	// returns the first particle
-	public Particle getParticel1() {
-		return new Particle();
-	}
-
-	// returns the second particle
-	public Particle getParticel2() {
-		return Particle2;
-	}
-
-	// compares time associated with event x
-	// returns a positive number(greater than), negative number(less than), or
-	// zero(equal)
-	public int compareTo(Object x) {
-		return 0;
-	}
-
 	public boolean wasSuperveningEvent()
 	{
-		if(true)
-		{
-		//return true if event has been validated since creation
-		return true;
-		}
-		else
-		{
-		//return false if the event has been invalidated 
-		return false;
-		}	
+		if(a != null && a.getCollisionCount() != countA) return true;
+		else if(b != null && b.getCollisionCount() != countB) return true;
+		else return false;
 	}
-
+	//@return the time
+	public double getTime() {
+		return time;
+	}
+	//@return the "A" Particle
+	public Particle getA() {
+		return a;
+	}
+	///@return the "B" Particle
+	public Particle getB() {
+		return b;
+	}
 }
