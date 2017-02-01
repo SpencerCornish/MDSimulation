@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdRandom;
@@ -29,7 +31,7 @@ public class Particle {
 		posY = StdRandom.uniform(0.0, 1.0);
 		velX = StdRandom.uniform(-0.005, 0.02);
 		velY = StdRandom.uniform(-0.005, 0.02);
-		radius = StdRandom.uniform(0.05, 0.1);
+		radius = StdRandom.uniform(0.01, 0.09);
 		mass = 0.5;
 		r = StdRandom.uniform(0, 255);
 		g = StdRandom.uniform(0, 255);
@@ -56,8 +58,21 @@ public class Particle {
 	}
 
 	public double collides(Particle b) {
-
-		return -1;
+		double dX = (this.posX) - (b.posX); // Change in X Position
+		double dY = this.posY - b.posY; // Change in Y Position
+		
+		double dvX = this.velX - b.velX; // Change in X Velocity
+		double dvY = this.velY - b.velY; // Change in Y Velocity
+		
+		double dVdP = (dX * dvX) + (dY * dvY);
+		double dVdV = (dvX*dvX)+(dvY*dvY);
+		double dPdP = (dX*dX)+(dY*dY);
+		double sigma = this.radius + b.radius;
+		double d = (dVdP*dVdP) - dVdV * (dPdP - sigma*sigma);
+		//System.out.println(d);
+		if(dVdP >= 0) return -1;
+		if(d < 0) return -1;
+		return -(dVdP + Math.sqrt(d)) / dVdV;
 	}
 
 	public void bounceV() // Vertical Wall Hit
@@ -76,8 +91,27 @@ public class Particle {
 	}
 
 	public void bounce(Particle b) {
-		System.out.println("YUCK");
-		count += 1; // Increase collision count by 1
+		double dX = this.posX - b.posX; // Change in X Position
+		double dY = this.posY - b.posY; // Change in Y Position
+		
+		double dvX = this.velX - b.velX; // Change in X Velocity
+		double dvY = this.velY - b.velY; // Change in Y Velocity
+		
+		double sigma = this.radius + b.radius;
+
+		double dVdP = (dX * dvX) + (dY * dvY);
+		
+		double j = (2 * mass * b.mass * dVdP)/(sigma*(mass+b.mass));
+		double jX = (j*dX)/sigma;
+		double jY = (j*dY)/sigma;
+		this.velX -= jX / this.mass;
+		this.velY -= jY / this.mass;
+		b.velX += jX / b.mass;
+		b.velY += jY / b.mass;
+		
+		
+		count++; // Increase collision count by 1
+		b.count++;
 	}
 
 	public int getCollisionCount() {

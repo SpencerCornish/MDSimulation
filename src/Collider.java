@@ -80,11 +80,11 @@ public class Collider {
 
 		for (int i = 0; i < particle.length; i++) {
 			double tPart = p.collides(particle[i]);
-			if (tPart < 0)
-				continue;
-			else {
-				// A valid time has been reported
+			//System.out.println(tPart);
 
+			if (tPart >= 0)
+			{
+				// A valid time has been reported
 				eventPQ.insert(new Event(tick + tPart, p, particle[i]));
 			}
 		}
@@ -92,6 +92,7 @@ public class Collider {
 
 	public static void main(String[] args) {
 		// StdDraw.setScale(-2, +2);
+		StdDraw.setCanvasSize(1000, 1000);
 		StdDraw.enableDoubleBuffering();
 		Particle[] partArray; // Array of particles
 		if (args.length == 1) {
@@ -101,7 +102,7 @@ public class Collider {
 				partArray[i] = new Particle();
 		} else if (args.length == 0) {
 			System.out.println("No StdIn, making generic particles :D");
-			int n = 10; // Number of generic particles
+			int n = 4; // Number of generic particles
 			partArray = new Particle[n];
 			for (int i = 0; i < n; i++) {
 				partArray[i] = new Particle();
