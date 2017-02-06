@@ -1,7 +1,13 @@
+/* 
+ *  Lab 1: Particle Collision
+ *  2-5-2017
+ *  Authors: Keely Weisbeck
+ *  		 Spencer Cornish
+ * 	
+ *  This file contains the particle class
+ *  which holds data about particles
+ */
 import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdRandom;
 
@@ -14,16 +20,15 @@ public class Particle {
 	private double mass; // Mass of the particle
 	private double radius; // Radius of the particle
 	private Color color; // Color of the particle
-	private int r, g, b;
 
-	public Particle(double posX, double posY, double velX, double velY, double radius, double mass, Color color) {
+	public Particle(double posX, double posY, double velX, double velY, double radius, double mass, int r, int g, int b) {
 		this.posX = posX;
 		this.posY = posY;
 		this.velX = velX;
 		this.velY = velY;
 		this.mass = mass;
 		this.radius = radius;
-		this.color = color;
+		this.color = new Color(r, g, b);
 	}
 
 	public Particle() {
@@ -33,9 +38,9 @@ public class Particle {
 		velY = StdRandom.uniform(-0.005, 0.02);
 		radius = StdRandom.uniform(0.01, 0.09);
 		mass = 0.5;
-		r = StdRandom.uniform(0, 255);
-		g = StdRandom.uniform(0, 255);
-		b = StdRandom.uniform(0, 255);
+		int r = StdRandom.uniform(0, 255);
+		int g = StdRandom.uniform(0, 255);
+		int b = StdRandom.uniform(0, 255);
 		color = new Color(r, g, b);
 	}
 
@@ -85,7 +90,6 @@ public class Particle {
 	public void bounceH() // Horizontal Wall Hit
 	{
 		// System.out.println("BounceHorizontalWall");
-
 		velY = -velY;
 		count += 1; // Increase collision count by 1
 	}
@@ -128,94 +132,6 @@ public class Particle {
 		posY += velY * moveTime;
 	}
 
-	/**
-	 * @return the posX
-	 */
-	public double getPosX() {
-		return posX;
-	}
 
-	/**
-	 * @return the posY
-	 */
-	public double getPosY() {
-		return posY;
-	}
-
-	/**
-	 * @return the velX
-	 */
-	public double getVelX() {
-		return velX;
-	}
-
-	/**
-	 * @return the velY
-	 */
-	public double getVelY() {
-		return velY;
-	}
-
-	/**
-	 * @return the mass
-	 */
-	public double getMass() {
-		return mass;
-	}
-
-	/**
-	 * @return the radius
-	 */
-	public double getRadius() {
-		return radius;
-	}
-
-	/**
-	 * @param posX
-	 *            the posX to set
-	 */
-	public void setPosX(double posX) {
-		this.posX = posX;
-	}
-
-	/**
-	 * @param posY
-	 *            the posY to set
-	 */
-	public void setPosY(double posY) {
-		this.posY = posY;
-	}
-
-	/**
-	 * @param velX
-	 *            the velX to set
-	 */
-	public void setVelX(double velX) {
-		this.velX = velX;
-	}
-
-	/**
-	 * @param velY
-	 *            the velY to set
-	 */
-	public void setVelY(double velY) {
-		this.velY = velY;
-	}
-
-	/**
-	 * @param mass
-	 *            the mass to set
-	 */
-	public void setMass(double mass) {
-		this.mass = mass;
-	}
-
-	/**
-	 * @param radius
-	 *            the radius to set
-	 */
-	public void setRadius(double radius) {
-		this.radius = radius;
-	}
 
 }
